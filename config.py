@@ -7,7 +7,7 @@ except Exception as e:
     log.critical(e)
     exit(0)
 
-RANDOM_STATE = 0
+RANDOM_STATE = np.random.randint(10000,25000)
 
 PARAMETERS = {
     'C' : [1e-3 ,1e-2, 1e-1, 1e0, 1e1, 1e2,1e3]
@@ -17,6 +17,6 @@ PARAMETERS = {
 
 CROSS_VALIDATION = CROSS_VALIDATION_MODEL['STRATIFIED_KFOLD']
 RESAMPLING = RESAMPLE_MODEL['UNDER_SAMPLING']['RUS']
-CHOOSEN_SCORE = SCORE['F1']
+CHOOSEN_SCORE = SCORE['AUC']
 TEST_SIZE = 0.25
-K_FOLD = [3,4,5,6,7,8]
+K_FOLD = [3,4,5,6,7,8,9,10]

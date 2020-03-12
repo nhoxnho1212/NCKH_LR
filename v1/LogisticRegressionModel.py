@@ -42,6 +42,7 @@ class Model:
         - fit : fitting and tuning parameters
             - X_train_validate
             - y_train_validate
+            - save (True / False) : default is True : save model to directory result/model
         - get_best_estimator : get best model
             return model sklearn logistic regression
         - predict : 
@@ -141,7 +142,10 @@ class Model:
             print('Preprocessing fail !')
             return (None, None)
 
-    def fit(self, X_train_validate = None, y_train_validate = None): 
+    def fit(self, X_train_validate = None, y_train_validate = None,save = True): 
+        C_best = 0
+        KFold_best = 0
+        iter_split_best = 0
         try :
             assert (not X_train_validate.isnull().any().any()) or X_train_validate != None, 'X_train is null'
             assert (not y_train_validate.isnull().any().any()) or y_train_validate != None, 'y_train is null'
@@ -179,11 +183,11 @@ class Model:
                         self.__LogR.set_params(C = C)
                         self.__LogR.fit(X_train_rs,y_train_rs)
                         print(f'training',end=', ')
-
-                        #save model to disk
-                        filename = f'{pathNameSave}result/model/LR_{C}_{i}_{k_split}_{RANDOM_STATE}_{RESAMPLING.__name__}.sav'
-                        pickle.dump(filename, open(filename, 'wb'))
-                        print(f'saving model')
+                        if save :
+                            #save model to disk
+                            filename = f'{pathNameSave}result/model/LR_{C}_{i}_{k_split}_{RANDOM_STATE}_{RESAMPLING.__name__}.sav'
+                            pickle.dump(filename, open(filename, 'wb'))
+                            print(f'saving model')
 
                         y_predict_valid = self.__LogR.predict_proba(X_validate_rs)
                         
@@ -197,7 +201,11 @@ class Model:
                         # Find largest score 
                         if self.best_score_ < score :
                             self.best_score_ = score
+                            C_best = C
+                            KFold_best = k_split
+                            iter_split_best = i
                             self.__best_estimator_ = pickle.dumps(self.__LogR)
+                            
 
                     mean_tpr = np.mean(tprs, axis=0)
                     mean_tpr[-1] = 1.0
@@ -218,6 +226,12 @@ class Model:
 
                 log.info(f'train succesed: c = {C}')
             log.info('train sucessed!!')
+            
+            # Save best file to result/
+            if save :
+                filename = f'{pathNameSave}result/LR_{C_best}_{iter_split_best}_{KFold_best}_{RANDOM_STATE}_{RESAMPLING.__name__}.sav'
+                pickle.dump(filename, open(filename, 'wb'))
+
         except Exception as e :
             log.error(e)
 

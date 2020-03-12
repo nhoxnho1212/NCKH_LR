@@ -1,8 +1,8 @@
 import os
-os.system("pip3 install virtualenv")
-os.system("virtualenv -p `which python3` envLogR")
+# os.system("pip3 install virtualenv")
+# os.system("virtualenv -p `which python3` envLogR")
 os.system("source envLogR/bin/activate")
-os.system("pip3 install -r requirements.txt")
+# os.system("pip3 install -r requirements.txt")
 # Disable warning sklearn
 def warn(*args, **kwargs):
     pass
@@ -49,6 +49,7 @@ try:
     fpr_score = SCORE['FPR'](y_test,y_predict)
     g_mean_score = SCORE['G_MEAN'](y_test,y_predict)
 
+    # Show accuracy
     log.info(f'''
     accuracy    = {accuracy_score}
     auc         = {auc_score}
@@ -56,6 +57,7 @@ try:
     specificity = {specificity_score}
     fpr         = {fpr_score}
     g-mean      = {g_mean_score}''')
+    
     
 except Exception as e :
     os.system('deactivate')
