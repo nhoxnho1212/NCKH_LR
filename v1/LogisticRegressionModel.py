@@ -191,7 +191,7 @@ class Model:
 
                         y_predict_valid = self.__LogR.predict_proba(X_validate_rs)
                         
-                        (ax, score, fpr, tpr) = plot_roc(ax,y_validate_rs,y_predict_valid[:,1],f'ROC fold {i}',CHOOSEN_SCORE)
+                        (ax, score, fpr, tpr) = plot_roc(ax,y_validate_rs,y_predict_valid[:,1],f'ROC fold {i}',CRITERION)
                         
                         interp_tpr = np.interp(mean_fpr, fpr, tpr)
                         interp_tpr[0] = 0.0
@@ -215,7 +215,7 @@ class Model:
                     ax.plot([0, 1], [0, 1], linestyle='--', lw=2, color='r',
                             label='Chance', alpha=.8)
                     ax.plot(mean_fpr, mean_tpr, color='b',
-                            label=f'Mean ROC ({CHOOSEN_SCORE.__name__} = {mean_score:0.4} ± {std_score:0.4})',
+                            label=f'Mean ROC ({CRITERION.__name__} = {mean_score:0.4} ± {std_score:0.4})',
                             lw=2, alpha=.8)
 
 
