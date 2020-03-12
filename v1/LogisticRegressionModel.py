@@ -18,6 +18,7 @@ except Exception as e:
 
 class Model:
     '''
+    Dataset is Lending club dataset
     Training dataset with model Logistic Regression.
     Pipeline:
         - Preprocessing
@@ -26,6 +27,26 @@ class Model:
             - Trainning
         - Fitting and Tuning
     
+    Attribute:
+        - params
+        - boolean_features
+        - numeric_feature
+        - categorical_features_onehot
+        - categorical_feature_labelencode
+        - best_score_
+    Method:
+        - set_params : set parameters for Logistic regression model
+            - params : parameters
+        - Preprocessing : 
+            - dataset : dataframe
+        - fit : fitting and tuning parameters
+            - X_train_validate
+            - y_train_validate
+        - get_best_estimator : get best model
+            return model sklearn logistic regression
+        - predict : 
+            - X_predict
+            return y_predict
     '''
     def __init__(self,params = None):
         try :

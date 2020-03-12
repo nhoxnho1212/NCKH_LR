@@ -1,8 +1,8 @@
 import os
-# os.system("pip3 install virtualenv")
-# os.system("virtualenv -p `which python3` envLogR")
+os.system("pip3 install virtualenv")
+os.system("virtualenv -p `which python3` envLogR")
 os.system("source envLogR/bin/activate")
-# os.system("pip3 install -r requirements.txt")
+os.system("pip3 install -r requirements.txt")
 # Disable warning sklearn
 def warn(*args, **kwargs):
     pass
