@@ -220,9 +220,9 @@ class Model:
 
 
                     ax.set(xlim=[-0.05, 1.05], ylim=[-0.05, 1.05],
-                        title=f"ROC Logistic Regression (c = {C}, random state = {RANDOM_STATE})")
+                        title=f"ROC Logistic Regression (c = {C}, {RESAMPLING.__name__})")
                     ax.legend(loc="lower right")
-                    plt.savefig(f'{pathNameSave}result/ROC/LR_ROC_{C}_{RANDOM_STATE}_{k_split}.png')
+                    plt.savefig(f'{pathNameSave}result/ROC/LR_ROC_{C}_{RANDOM_STATE}_{k_split}_{RESAMPLING.__name__}.png')
 
                 log.info(f'train succesed: c = {C}')
             log.info('train sucessed!!')
