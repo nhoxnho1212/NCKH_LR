@@ -1,0 +1,12 @@
+# Virtual enviroment jupyter notebook
+ipykernel
+# Libs for Analysis and number processing
+numpy
+tables
+pandas
+matplotlib
+seaborn
+# Lib for Machine learning 
+sklearn
+# Lib for imbalance processing
+imblearn
