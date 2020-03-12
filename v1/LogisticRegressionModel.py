@@ -172,10 +172,12 @@ class Model:
                         y_train, y_validate = y_train_validate.iloc[train_index], y_train_validate.iloc[validate_index]
 
                         #resample (imbalance processing)
-                        rs = RESAMPLING(random_state=RANDOM_STATE)
+                        try:
+                            rs = RESAMPLING(random_state=RANDOM_STATE)
+                        except :
+                            rs = RESAMPLING()
                         X_train_rs, y_train_rs = rs.fit_sample(X_train, y_train)
 
-                        rs = RESAMPLING(random_state=RANDOM_STATE)
                         X_validate_rs,y_validate_rs = rs.fit_resample(X_validate, y_validate)
                         print(f'resamling',end=', ')
                         

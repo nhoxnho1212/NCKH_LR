@@ -2,8 +2,8 @@ import logging
 log = logging.getLogger('root')
 try:
     import numpy as np
-    from imblearn.over_sampling import SMOTE
-    from imblearn.under_sampling import RandomUnderSampler, TomekLinks
+    from imblearn.over_sampling import SMOTE, RandomOverSampler
+    from imblearn.under_sampling import RandomUnderSampler, NearMiss
     from sklearn.model_selection import StratifiedKFold, KFold
     from util.score import *
     from datetime import datetime
@@ -25,17 +25,20 @@ SCORE = {
 ''' 
     Under sampling :
         - RUS = RandomUnderSanpler
-        - Tomk = TomkLinks
+        - NM = NearMiss
     Over Sampling :
+        - ROS = RandomOverSampler
         - SMOTE = SMOTE
+
 '''
 RESAMPLE_MODEL = {
     'UNDER_SAMPLING' : {
         'RUS' : RandomUnderSampler,
-        'Tomk' : TomekLinks
+        'NM' : NearMiss
     },
     'OVER_SAMPLING' : {
-        'SMOTE' : SMOTE
+        'SMOTE' : SMOTE,
+        'ROS' : RandomOverSampler
     }
 }
 CROSS_VALIDATION_MODEL = {
