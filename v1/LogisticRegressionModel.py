@@ -188,7 +188,7 @@ class Model:
                         if save :
                             #save model to disk
                             filename = f'{pathNameSave}result/model/LR_{C}_{i}_{k_split}_{RANDOM_STATE}_{RESAMPLING.__name__}.sav'
-                            pickle.dump(filename, open(filename, 'wb'))
+                            pickle.dump(self.__LogR, open(filename, 'wb'))
                             print(f'saving model')
 
                         y_predict_valid = self.__LogR.predict_proba(X_validate_rs)
