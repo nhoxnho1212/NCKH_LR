@@ -171,29 +171,36 @@ class Model:
                         
                         y_train, y_validate = y_train_validate.iloc[train_index], y_train_validate.iloc[validate_index]
 
-                        #resample (imbalance processing)
-                        try:
-                            rs = RESAMPLING(random_state=RANDOM_STATE)
-                        except :
-                            rs = RESAMPLING()
-                        X_train_rs, y_train_rs = rs.fit_sample(X_train, y_train)
-
-                        X_validate_rs,y_validate_rs = rs.fit_resample(X_validate, y_validate)
-                        print(f'resamling',end=', ')
-                        
-                        #train
-                        self.__LogR.set_params(C = C)
-                        self.__LogR.fit(X_train_rs,y_train_rs)
-                        print(f'training',end=', ')
-                        if save :
-                            #save model to disk
+                        # Read file
+                        try :
                             filename = f'{pathNameSave}result/model/LR_{C}_{i}_{k_split}_{RANDOM_STATE}_{RESAMPLING.__name__}.sav'
-                            pickle.dump(self.__LogR, open(filename, 'wb'))
-                            print(f'saving model')
+                            with open(filename, 'rb') as f:
+                                self.__LogR = pickle.load(f)
+                            print(' done')
+                        except :
+                            #resample (imbalance processing)
+                            try:
+                                rs = RESAMPLING(random_state=RANDOM_STATE)
+                            except :
+                                rs = RESAMPLING()
+                            X_train_rs, y_train_rs = rs.fit_sample(X_train, y_train)
 
-                        y_predict_valid = self.__LogR.predict_proba(X_validate_rs)
+                            # X_validate_rs,y_validate_rs = rs.fit_resample(X_validate, y_validate)
+                            print(f'resamling',end=', ')
+                            
+                            #train
+                            self.__LogR.set_params(C = C)
+                            self.__LogR.fit(X_train_rs,y_train_rs)
+                            print(f'training',end=', ')
+                            if save :
+                                #save model to disk
+                                filename = f'{pathNameSave}result/model/LR_{C}_{i}_{k_split}_{RANDOM_STATE}_{RESAMPLING.__name__}.sav'
+                                pickle.dump(self.__LogR, open(filename, 'wb'))
+                                print(f'saving model')
+
+                        y_predict_valid = self.__LogR.predict_proba(X_validate)
                         
-                        (ax, score, fpr, tpr) = plot_roc(ax,y_validate_rs,y_predict_valid[:,1],f'ROC fold {i}',CRITERION)
+                        (ax, score, fpr, tpr) = plot_roc(ax,y_validate,y_predict_valid[:,1],f'ROC fold {i}',CRITERION)
                         
                         interp_tpr = np.interp(mean_fpr, fpr, tpr)
                         interp_tpr[0] = 0.0
