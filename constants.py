@@ -3,6 +3,7 @@ log = logging.getLogger('root')
 try:
     import numpy as np
     from imblearn.over_sampling import SMOTE, RandomOverSampler
+    from imblearn.combine import SMOTETomek, SMOTEENN
     from imblearn.under_sampling import RandomUnderSampler, NearMiss
     from sklearn.model_selection import StratifiedKFold, KFold
     from util.score import *
@@ -40,6 +41,10 @@ RESAMPLE_MODEL = {
     'OVER_SAMPLING' : {
         'SMOTE' : SMOTE,
         'ROS' : RandomOverSampler
+    },
+    'HYBRID' : {
+        'SMOTE_TOMK' : SMOTETomek,
+        'SMOTE_ENN' : SMOTEENN
     }
 }
 CROSS_VALIDATION_MODEL = {
