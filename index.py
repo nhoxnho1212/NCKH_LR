@@ -43,15 +43,17 @@ try:
     y_predict = LR.predict(X_test)
 
     auc_score = SCORE['AUC'](y_test,y_predict)
-    accuracy_score = SCORE['LOSS_LOG'](y_test,y_predict)
+    accuracy_score = SCORE['ACCURACY'](y_test,y_predict)
     sensitivity_score = SCORE['SENSITIVITY'](y_test,y_predict)
     specificity_score = SCORE['SPECIFICITY'](y_test,y_predict)
     fpr_score = SCORE['FPR'](y_test,y_predict)
     g_mean_score = SCORE['G_MEAN'](y_test,y_predict)
+    logLoss_score = SCORE['LOG_LOSS'](y_test,y_predict)
 
     # Show accuracy
     log.info(f'''
     accuracy    = {accuracy_score}
+    log loss    = {logLoss_score}
     auc         = {auc_score}
     sensitivity = {sensitivity_score}
     specificity = {specificity_score}

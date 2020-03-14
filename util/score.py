@@ -2,7 +2,7 @@ import os
 import logging
 log = logging.getLogger('root')
 try:
-    from sklearn.metrics import accuracy_score, f1_score, confusion_matrix, recall_score, roc_curve
+    from sklearn.metrics import accuracy_score, f1_score, confusion_matrix, recall_score, roc_curve, log_loss
     from sklearn.metrics import auc as roc_auc
     import numpy as np
 except Exception as e :
@@ -60,5 +60,11 @@ def fpr(y_true,y_predict):
     try:
         (TN, FP, FN, TP)=confusion_matrix(y_true,np.round(y_predict)).ravel()
         return FP/(TN+FP)
+    except Exception as e:
+        log.error(e)
+
+def logLoss(y_true,y_predict):
+    try:
+        return log_loss(y_true,y_predict)
     except Exception as e:
         log.error(e)

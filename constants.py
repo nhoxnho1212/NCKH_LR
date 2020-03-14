@@ -13,13 +13,14 @@ except Exception as e:
 
 SCORE = {
     'RECALL' : recall,
-    'LOSS_LOG': accuracy,
+    'ACCURACY': accuracy,
     'F1' : f1,
     'AUC': auc,
     'SENSITIVITY' : sensivity,
     'SPECIFICITY' : specificity,
     'FPR' : fpr,
-    'G_MEAN' : g_mean
+    'G_MEAN' : g_mean,
+    'LOG_LOSS' : logLoss
 }
 
 ''' 
