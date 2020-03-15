@@ -9,22 +9,29 @@ except Exception as e :
     log.critical(e)
     exit(0)
 
+try:
+    from config import THRESHOLD
+except :
+    THRESHOLD = 0.5
 
 def accuracy(y_true,y_predict):
     try:
-        return accuracy_score(y_true,np.round(y_predict))
+        y_predict = y_predict >= THRESHOLD
+        return accuracy_score(y_true,y_predict)
     except Exception as e:
         log.error(e)
 
 def f1(y_true,y_predict):
     try:
-        return f1_score(y_true,np.round(y_predict))
+        y_predict = y_predict >= THRESHOLD
+        return f1_score(y_true,y_predict)
     except Exception as e:
         log.error(e)
 
 def recall(y_true,y_predict):
     try:
-        return recall_score(y_true,np.round(y_predict))
+        y_predict = y_predict >= THRESHOLD
+        return recall_score(y_true,y_predict)
     except Exception as e:
         log.error(e)
 
@@ -37,28 +44,32 @@ def auc(y_true,y_predict):
 
 def g_mean(y_true,y_predict):
     try:
-        (TN, FP, FN, TP) = confusion_matrix(y_true,np.round(y_predict)).ravel()
+        y_predict = y_predict >= THRESHOLD
+        (TN, FP, FN, TP) = confusion_matrix(y_true,y_predict).ravel()
         return np.sqrt((TP/(TP + FN)) * (TN/(TN + FP)))
     except Exception as e:
         log.error(e)
 
 def sensivity(y_true,y_predict):
     try:
-        (TN, FP, FN, TP )=confusion_matrix(y_true,np.round(y_predict)).ravel()
+        y_predict = y_predict >= THRESHOLD
+        (TN, FP, FN, TP )=confusion_matrix(y_true,y_predict).ravel()
         return TP/(TP+FN)
     except Exception as e:
         log.error(e)
 
 def specificity(y_true,y_predict):
     try:
-        (TN, FP, FN, TP)=confusion_matrix(y_true,np.round(y_predict)).ravel()
+        y_predict = y_predict >= THRESHOLD
+        (TN, FP, FN, TP)=confusion_matrix(y_true,y_predict).ravel()
         return TN/(TN+FP)
     except Exception as e:
         log.error(e)
 
 def fpr(y_true,y_predict):
     try:
-        (TN, FP, FN, TP)=confusion_matrix(y_true,np.round(y_predict)).ravel()
+        y_predict = y_predict >= THRESHOLD
+        (TN, FP, FN, TP)=confusion_matrix(y_true,y_predict).ravel()
         return FP/(TN+FP)
     except Exception as e:
         log.error(e)
