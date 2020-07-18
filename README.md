@@ -11,7 +11,7 @@ NCKH - logistic regression
 > ENV_NAME=envLR
 
 **options**
-- add virtual enviroment to jupyter notebook: ` python3 -m ipykernel install --user `
+- add virtual enviroment to jupyter notebook: ` python3 -m ipykernel install --user --name=$ENV_NAME`
 - deactivate (linux): `deactivate`
 ### 2. Run:
 `python3 index.py`
